@@ -1,0 +1,44 @@
+<div class="insert-service">
+
+	<h2>#i18n{xpagelinkservice.xpagelinkservice_selector.title}</h2>
+	<form method="post"
+		action="jsp/admin/plugins/xpagelinkservice/DoInsertLink.jsp"><input
+		type="hidden" name="input" value="${input}" />
+		<h3>#i18n{portal.insert.labelLinkProperties}</h3>
+		<p>
+			<label for="text">#i18n{xpagelinkservice.xpagelinkservice_selector.labelLinkText} * :</label>
+			<input type="text" name="text" id="text" value="${selected_text}"
+				size="30" maxlength="50" />
+		</p>
+		<p>
+			<label for="title">#i18n{xpagelinkservice.xpagelinkservice_selector.labelLinkTitle}	* :</label>
+			<input type="text" name="title" id="title" value="" size="30"
+				maxlength="50" />
+		</p>
+		<p>
+			<label for="target">#i18n{xpagelinkservice.xpagelinkservice_selector.labelLinkTarget} :</label>
+			<select name="target" id="target">
+				<option value="_self">#i18n{portal.insert.labelTargetSelf}
+				<option value="_blank">#i18n{portal.insert.labelTargetBlank}
+			</select>
+		</p>
+		
+		<h3>#i18n{xpagelinkservice.xpagelinkservice_selector.labelSelectPage}</h3>
+	
+		<#list applications_list as application>
+		<p>
+			<label for="xpage_${application.id}">${application.id}</label>
+			<input class="radio" type="radio" name="xpage" id="xpage_${application.id}"
+				value="${application.id}" />
+	
+		</p>
+		</#list>
+		<p>
+			<input type="submit" class="button"
+				value="#i18n{portal.util.labelValidate}" /> &nbsp;
+			<input
+				type="button" class="button" onclick="javascript:history.go(-1);"
+				value="#i18n{portal.util.labelBack}" />
+		</p>
+	</form>
+</div>
