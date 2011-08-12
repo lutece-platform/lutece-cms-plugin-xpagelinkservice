@@ -40,8 +40,8 @@
 	
 	<properties>
 		<componentName>xpagelinkservice</componentName>
-		<jiraProjectName>LUTECE</jiraProjectName>
-		<jiraComponentId>10045</jiraComponentId>
+		<jiraProjectName>XPAGELINKSERVICE</jiraProjectName>
+		<jiraComponentId>10192</jiraComponentId>
 	</properties>
     <scm>
         <connection>scm:svn:http://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/cms/plugin-xpagelinkservice</connection>
