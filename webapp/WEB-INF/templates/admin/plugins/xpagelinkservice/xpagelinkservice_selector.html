@@ -1,28 +1,50 @@
-<div class="insert-service">
-	<h4>#i18n{xpagelinkservice.xpagelinkservice_selector.title}</h4>
-	<form method="post"	class="form" action="jsp/admin/plugins/xpagelinkservice/DoInsertLink.jsp">
-	<input type="hidden" name="input" value="${input}" />
-	<h4>#i18n{portal.insert.labelLinkProperties}</h4>
-	<label for="text">#i18n{xpagelinkservice.xpagelinkservice_selector.labelLinkText} * :</label>
-	<input type="text" name="text" id="text" value="${selected_text}" size="30" maxlength="50" />
-	<label for="title">#i18n{xpagelinkservice.xpagelinkservice_selector.labelLinkTitle}	* :</label>
-	<input type="text" name="title" id="title" value="" size="30" maxlength="50" />
-	<label for="target">#i18n{xpagelinkservice.xpagelinkservice_selector.labelLinkTarget} :</label>
-	<select name="target" id="target">
-		<option value="_self">#i18n{portal.insert.labelTargetSelf}
-		<option value="_blank">#i18n{portal.insert.labelTargetBlank}
-	</select>
-	<h4>#i18n{xpagelinkservice.xpagelinkservice_selector.labelSelectPage}</h4>
-	<ul>
-	<#list applications_list as application>
-		<li>
-			<label class="radio" for="xpage_${application.id}">${application.id}
-				<input class="radio" type="radio" name="xpage" id="xpage_${application.id}"	value="${application.id}" />
-			</label>
-		</li>
-	</#list>
-	</ul>
-	<button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i>&nbsp;#i18n{portal.util.labelValidate}</button> 
-	<button type="button" class="btn" onclick="javascript:history.go(-1);"><i class="icon-remove-circle"></i>&nbsp;#i18n{portal.util.labelBack}</button>
-	</form>
-</div>
+<@coreAdminCSSLinks />
+<#if applications_list?has_content>
+	<@tform name='xpage_link' action='jsp/admin/plugins/xpagelinkservice/InsertXPageLink.jsp' class='mt-3'>
+	<@input type='hidden' name='action' value='insertXPageLink' />
+	<@input type='hidden' name='input' value=.data_model.input! />
+	<@row>
+		<@columns sm=8>
+			<@box>
+				<@boxHeader title='#i18n{xpagelinkservice.xpagelinkservice_selector.labelSelectPage}' />
+				<@boxBody>
+				<#list applications_list as application>
+					<@radioButton name='xpage' id='xpage_${application.id}' labelKey='${application.id}' labelFor='xpage_${application.id}' value='${application.id}' mandatory=true />
+				</#list>
+				</@boxBody>
+			</@box>
+		</@columns>
+		<@columns sm=4>
+			<@box>
+				<@boxHeader title='#i18n{portal.insert.labelLinkProperties}' />
+				<@boxBody>
+				<@formGroup labelKey='#i18n{xpagelinkservice.xpagelinkservice_selector.labelLinkText}' labelFor='text' rows=2 mandatory=true>
+					<@input name='text' id='text' value=selected_text! maxlength=50 mandatory=true />
+				</@formGroup>
+				<@formGroup labelKey='#i18n{xpagelinkservice.xpagelinkservice_selector.labelLinkTitle}' labelFor='title' rows=2 mandatory=true>
+					<@input name='title' id='title' value='' maxlength=50 mandatory=true />
+				</@formGroup>
+				<@formGroup labelKey='#i18n{xpagelinkservice.xpagelinkservice_selector.labelLinkTarget}' labelFor='target' rows=2>
+					<@select name='target' id='target'>
+						<@option value='_self' label='#i18n{portal.insert.labelTargetSelf}' />
+						<@option value='_blank' label='#i18n{portal.insert.labelTargetBlank}' />
+					</@select>
+				</@formGroup>
+				</@boxBody>
+			</@box>
+		</@columns>
+	</@row>
+	<@row>
+		<@columns class='d-flex justify-content-end'>
+			<@button type='submit' class='me-1' buttonIcon='check' title='#i18n{portal.util.labelValidate}' />
+			<@button buttonIcon='x' color='light' title='#i18n{portal.util.labelCancel}' params='onclick="javascript:history.go(-1);"' />
+		</@columns>
+	</@row>
+	</@tform>
+<#else>
+	<@row>
+		<@columns class='d-flex justify-content-center'>
+			<@empty title='#i18n{xpagelinkservice.xpagelinkservice_selector.noApplication}' iconName='apps-off' subtitle=' ' />
+		</@columns>
+	</@row>
+</#if>
